@@ -1,0 +1,29 @@
+<resources>
+    <!-- Existing NumberPickerText style (if present) -->
+    <style name="NumberPickerText" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColorHighlight">#6200EE</item>
+        <item name="android:textColorHint">#B0B0B0</item>
+        <item name="android:textColorLink">#BB86FC</item>
+        <item name="colorControlNormal">#757575</item>
+        <item name="colorControlActivated">#BB86FC</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <!-- New larger NumberPicker style -->
+    <style name="NumberPickerLargeText" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorHighlight">#6200EE</item>
+        <item name="android:textColorHint">#B0B0B0</item>
+        <item name="android:textColorLink">#BB86FC</item>
+        <item name="colorControlNormal">#757575</item>
+        <item name="colorControlActivated">#BB86FC</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <!-- Other styles (e.g., for rounded_button, rounded_edittext) remain unchanged -->
+</resources>

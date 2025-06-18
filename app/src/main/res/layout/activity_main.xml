@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    tools:context=".MainActivity">
+
+    <!-- Sticky Header with Timer Controls -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#1E1E1E"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Timer Display -->
+                <TextView
+                    android:id="@+id/timerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="00:00"
+                    android:textSize="48sp"
+                    android:textColor="#BB86FC"
+                    android:fontFamily="sans-serif-light" />
+
+                <!-- Status Display -->
+                <TextView
+                    android:id="@+id/section1TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Ready to Start"
+                    android:textSize="28sp"
+                    android:textColor="#E0E0E0"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginTop="16dp" />
+
+                <!-- Control Buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:paddingHorizontal="8dp"
+                    android:weightSum="3"
+                    android:baselineAligned="false">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/startButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:minHeight="64dp"
+                        android:paddingVertical="16dp"
+                        android:text="Start"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white"
+                        app:cornerRadius="8dp"
+                        app:backgroundTint="#BB86FC"
+                        app:rippleColor="#9B51E0"
+                        app:strokeWidth="0dp"
+                        android:enabled="true" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/stopButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:minHeight="64dp"
+                        android:paddingVertical="16dp"
+                        android:text="Stop"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="#F44336"
+                        app:rippleColor="#D32F2F"
+                        app:cornerRadius="8dp"
+                        app:strokeWidth="0dp"
+                        android:enabled="true" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/resetButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:minHeight="64dp"
+                        android:paddingVertical="16dp"
+                        android:text="Reset"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="#757575"
+                        app:rippleColor="#9E9E9E"
+                        app:cornerRadius="8dp"
+                        app:strokeWidth="0dp"
+                        android:enabled="true" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="32dp">
+
+            <!-- TTS Input Field -->
+            <EditText
+                android:id="@+id/ttsEditText"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:hint="Enter TTS message"
+                android:textColor="#E0E0E0"
+                android:textColorHint="#757575"
+                android:background="@drawable/rounded_edittext"
+                android:padding="20dp"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Phase 1 Section (1.5 minutes) -->
+            <TextView
+                android:id="@+id/section2TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phase 1: Read the Question"
+                android:textSize="28sp"
+                android:textColor="#E0E0E0"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintTop_toBottomOf="@id/ttsEditText"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <LinearLayout
+                android:id="@+id/phase1TimePickerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/section2TextView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp">
+
+                <NumberPicker
+                    android:id="@+id/phase1Minutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="Phase 1 Minutes" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textColor="#E0E0E0"
+                    android:textSize="32sp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="12dp" />
+
+                <NumberPicker
+                    android:id="@+id/phase1Seconds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Phase 1 Seconds" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/phase1StartButton"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:text="Start Phase 1"
+                android:textColor="#E0E0E0"
+                android:background="@drawable/rounded_button"
+                android:textSize="18sp"
+                android:elevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/phase1TimePickerLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:enabled="true" />
+
+            <!-- Phase 2 Section (6 minutes) -->
+            <TextView
+                android:id="@+id/section3TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phase 2: Enter the Room"
+                android:textSize="28sp"
+                android:textColor="#E0E0E0"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintTop_toBottomOf="@id/phase1StartButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <LinearLayout
+                android:id="@+id/phase2TimePickerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/section3TextView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp">
+
+                <NumberPicker
+                    android:id="@+id/phase2Minutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="Phase 2 Minutes" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textColor="#E0E0E0"
+                    android:textSize="32sp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="12dp" />
+
+                <NumberPicker
+                    android:id="@+id/phase2Seconds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Phase 2 Seconds" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/phase2StartButton"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:text="Start Phase 2"
+                android:textColor="#E0E0E0"
+                android:background="@drawable/rounded_button"
+                android:textSize="18sp"
+                android:elevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/phase2TimePickerLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:enabled="true" />
+
+            <!-- Phase 3 Section (2 minutes) -->
+            <TextView
+                android:id="@+id/section4TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phase 3: Final Minutes"
+                android:textSize="28sp"
+                android:textColor="#E0E0E0"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintTop_toBottomOf="@id/phase2StartButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <LinearLayout
+                android:id="@+id/phase3TimePickerLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                app:layout_constraintTop_toBottomOf="@id/section4TextView"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp">
+
+                <NumberPicker
+                    android:id="@+id/phase3Minutes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginEnd="4dp"
+                    android:contentDescription="Phase 3 Minutes" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=":"
+                    android:textColor="#E0E0E0"
+                    android:textSize="32sp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="12dp" />
+
+                <NumberPicker
+                    android:id="@+id/phase3Seconds"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:theme="@style/NumberPickerLargeText"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Phase 3 Seconds" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/phase3StartButton"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:text="Start Phase 3"
+                android:textColor="#E0E0E0"
+                android:background="@drawable/rounded_button"
+                android:textSize="18sp"
+                android:elevation="4dp"
+                app:layout_constraintTop_toBottomOf="@id/phase3TimePickerLayout"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:enabled="false" />
+
+            <Button
+                android:id="@+id/resetSection1Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/reset_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <Switch
+                android:id="@+id/darkModeSwitch"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
