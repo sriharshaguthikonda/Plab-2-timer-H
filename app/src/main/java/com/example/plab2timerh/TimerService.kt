@@ -173,8 +173,6 @@ class TimerService : Service() {
                 setBypassDnd(true)
                 // Allow the notification to show as heads-up
                 importance = NotificationManager.IMPORTANCE_HIGH
-                // Allow the notification to show as heads-up
-                importance = NotificationManager.IMPORTANCE_HIGH
             }
             val manager = getSystemService(NotificationManager::class.java)
             manager?.createNotificationChannel(serviceChannel)
