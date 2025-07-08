@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Plab 2 timer H</string>
+    <string name="timer_default">00:00</string>
+    <string name="status_ready">Ready to Start</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+    <string name="action_reset">Reset</string>
+    <string name="hint_tts">Enter TTS message</string>
+    <string name="phase1_label">Phase 1: Read the Question</string>
+    <string name="phase1_start">Start Phase 1</string>
+    <string name="phase1_minutes_desc">Phase 1 Minutes</string>
+    <string name="phase1_seconds_desc">Phase 1 Seconds</string>
+    <string name="phase2_label">Phase 2: Enter the Room</string>
+    <string name="phase2_start">Start Phase 2</string>
+    <string name="phase2_minutes_desc">Phase 2 Minutes</string>
+    <string name="phase2_seconds_desc">Phase 2 Seconds</string>
+    <string name="phase3_label">Phase 3: Final Minutes</string>
+    <string name="phase3_start">Start Phase 3</string>
+    <string name="phase3_minutes_desc">Phase 3 Minutes</string>
+    <string name="phase3_seconds_desc">Phase 3 Seconds</string>
+    <string name="colon">:</string>
 </resources>
