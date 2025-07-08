@@ -2,9 +2,23 @@
 
 This is a simple Android timer application for the "Plab 2" exam practice. It provides countdown timers with phases for practice sessions.
 
+## Features
+
+- Multi-phase countdown timer for PLAB 2 practice
+- Interface now avoids overlapping device cutouts such as punch-hole cameras
+
 ## Building
 
-Use Android Studio or run `./gradlew assembleDebug` to build the project.
+1. Install the Android SDK. On Debian/Ubuntu you can install the
+   `android-sdk` package or download Google's command line tools and extract
+   them to a directory such as `/usr/lib/android-sdk`.
+2. Set the `ANDROID_HOME` environment variable to that directory or create a
+   `local.properties` file with `sdk.dir=/path/to/android-sdk` so Gradle can
+   locate the SDK.
+3. Accept the required platform and build-tool licenses. If `sdkmanager` is
+   available you can run `sdkmanager --licenses`; otherwise use the
+   `google-android-cmdline-tools` package to accept them.
+4. Run `./gradlew assembleDebug` (or build from Android Studio).
 
 ## Requirements
 
