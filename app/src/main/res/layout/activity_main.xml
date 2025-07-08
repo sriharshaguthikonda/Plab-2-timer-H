@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#121212"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
     <!-- Sticky Header with Timer Controls -->
@@ -37,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="00:00"
+                    android:text="@string/timer_default"
                     android:textSize="48sp"
                     android:textColor="#BB86FC"
                     android:fontFamily="sans-serif-light" />
@@ -48,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Ready to Start"
+                    android:text="@string/status_ready"
                     android:textSize="28sp"
                     android:textColor="#E0E0E0"
                     android:fontFamily="sans-serif-medium"
@@ -73,7 +74,7 @@
                         android:layout_marginEnd="8dp"
                         android:minHeight="64dp"
                         android:paddingVertical="16dp"
-                        android:text="Start"
+                        android:text="@string/action_start"
                         android:textSize="16sp"
                         android:textColor="@android:color/white"
                         app:cornerRadius="8dp"
@@ -91,7 +92,7 @@
                         android:layout_marginEnd="8dp"
                         android:minHeight="64dp"
                         android:paddingVertical="16dp"
-                        android:text="Stop"
+                        android:text="@string/action_stop"
                         android:textSize="16sp"
                         android:textColor="@android:color/white"
                         app:backgroundTint="#F44336"
@@ -108,7 +109,7 @@
                         android:layout_weight="1"
                         android:minHeight="64dp"
                         android:paddingVertical="16dp"
-                        android:text="Reset"
+                        android:text="@string/action_reset"
                         android:textSize="16sp"
                         android:textColor="@android:color/white"
                         app:backgroundTint="#757575"
@@ -137,7 +138,7 @@
                 android:id="@+id/ttsEditText"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:hint="Enter TTS message"
+                android:hint="@string/hint_tts"
                 android:textColor="#E0E0E0"
                 android:textColorHint="#757575"
                 android:background="@drawable/rounded_edittext"
@@ -153,7 +154,7 @@
                 android:id="@+id/section2TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phase 1: Read the Question"
+                android:text="@string/phase1_label"
                 android:textSize="28sp"
                 android:textColor="#E0E0E0"
                 android:fontFamily="sans-serif-medium"
@@ -180,12 +181,12 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginEnd="4dp"
-                    android:contentDescription="Phase 1 Minutes" />
+                    android:contentDescription="@string/phase1_minutes_desc" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=":"
+                    android:text="@string/colon"
                     android:textColor="#E0E0E0"
                     android:textSize="32sp"
                     android:layout_gravity="center"
@@ -198,14 +199,14 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginStart="4dp"
-                    android:contentDescription="Phase 1 Seconds" />
+                    android:contentDescription="@string/phase1_seconds_desc" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/phase1StartButton"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:text="Start Phase 1"
+                android:text="@string/phase1_start"
                 android:textColor="#E0E0E0"
                 android:background="@drawable/rounded_button"
                 android:textSize="18sp"
@@ -222,7 +223,7 @@
                 android:id="@+id/section3TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phase 2: Enter the Room"
+                android:text="@string/phase2_label"
                 android:textSize="28sp"
                 android:textColor="#E0E0E0"
                 android:fontFamily="sans-serif-medium"
@@ -249,12 +250,12 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginEnd="4dp"
-                    android:contentDescription="Phase 2 Minutes" />
+                    android:contentDescription="@string/phase2_minutes_desc" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=":"
+                    android:text="@string/colon"
                     android:textColor="#E0E0E0"
                     android:textSize="32sp"
                     android:layout_gravity="center"
@@ -267,14 +268,14 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginStart="4dp"
-                    android:contentDescription="Phase 2 Seconds" />
+                    android:contentDescription="@string/phase2_seconds_desc" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/phase2StartButton"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:text="Start Phase 2"
+                android:text="@string/phase2_start"
                 android:textColor="#E0E0E0"
                 android:background="@drawable/rounded_button"
                 android:textSize="18sp"
@@ -291,7 +292,7 @@
                 android:id="@+id/section4TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phase 3: Final Minutes"
+                android:text="@string/phase3_label"
                 android:textSize="28sp"
                 android:textColor="#E0E0E0"
                 android:fontFamily="sans-serif-medium"
@@ -318,12 +319,12 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginEnd="4dp"
-                    android:contentDescription="Phase 3 Minutes" />
+                    android:contentDescription="@string/phase3_minutes_desc" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=":"
+                    android:text="@string/colon"
                     android:textColor="#E0E0E0"
                     android:textSize="32sp"
                     android:layout_gravity="center"
@@ -336,14 +337,14 @@
                     android:layout_weight="1.4"
                     android:theme="@style/NumberPickerLargeText"
                     android:layout_marginStart="4dp"
-                    android:contentDescription="Phase 3 Seconds" />
+                    android:contentDescription="@string/phase3_seconds_desc" />
             </LinearLayout>
 
             <Button
                 android:id="@+id/phase3StartButton"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:text="Start Phase 3"
+                android:text="@string/phase3_start"
                 android:textColor="#E0E0E0"
                 android:background="@drawable/rounded_button"
                 android:textSize="18sp"
