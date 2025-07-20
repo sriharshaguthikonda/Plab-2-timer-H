@@ -12,6 +12,7 @@ import android.os.*
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.view.WindowManager
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var resetButton: Button
     private lateinit var darkModeSwitch: Switch
     private lateinit var ttsEditText: EditText
+    private lateinit var volumeSeekBar: SeekBar
+    private lateinit var volumeWarning: TextView
+    private var ttsVolume: Float = 1.0f
     private lateinit var tts: TextToSpeech
 
     private lateinit var phase1Minutes: NumberPicker
@@ -200,6 +204,19 @@ class MainActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.resetButton)
         darkModeSwitch = findViewById(R.id.darkModeSwitch)
         ttsEditText = findViewById(R.id.ttsEditText)
+        volumeSeekBar = findViewById(R.id.volumeSeekBar)
+        volumeWarning = findViewById(R.id.volumeWarning)
+
+        volumeSeekBar.progress = (ttsVolume * 100).toInt()
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ttsVolume = progress / 100f
+                volumeWarning.visibility = if (progress > 100) View.VISIBLE else View.GONE
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         phase1Minutes = findViewById(R.id.phase1Minutes)
         phase1Seconds = findViewById(R.id.phase1Seconds)
@@ -381,7 +398,7 @@ class MainActivity : AppCompatActivity() {
     private fun speak(text: String) {
         if (isTtsInitialized) {
             val params = Bundle()
-            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f)
+            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume)
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
         }
     }

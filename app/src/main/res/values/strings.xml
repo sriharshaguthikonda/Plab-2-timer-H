@@ -19,4 +19,6 @@
     <string name="phase3_minutes_desc">Phase 3 Minutes</string>
     <string name="phase3_seconds_desc">Phase 3 Seconds</string>
     <string name="colon">:</string>
+    <string name="volume_label">TTS Volume</string>
+    <string name="volume_warning">Warning: High volume may damage your speakers.</string>
 </resources>
