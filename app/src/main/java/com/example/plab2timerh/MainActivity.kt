@@ -13,6 +13,9 @@ import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.view.WindowManager
 import android.view.View
+import android.media.audiofx.LoudnessEnhancer
+import kotlin.math.log10
+import kotlin.math.min
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var volumeSeekBar: SeekBar
     private lateinit var volumeWarning: TextView
     private var ttsVolume: Float = 1.0f
+    private var loudnessEnhancer: LoudnessEnhancer? = null
     private lateinit var tts: TextToSpeech
 
     private lateinit var phase1Minutes: NumberPicker
@@ -284,6 +288,7 @@ class MainActivity : AppCompatActivity() {
                 tts.setPitch(1.0f)
             }
         }
+        loudnessEnhancer = LoudnessEnhancer(0)
     }
 
     private fun updateDurations() {
@@ -398,13 +403,28 @@ class MainActivity : AppCompatActivity() {
     private fun speak(text: String) {
         if (isTtsInitialized) {
             val params = Bundle()
-            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume)
+            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, min(ttsVolume, 1.0f))
+            adjustVolumeBoost()
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
+        }
+    }
+
+    private fun adjustVolumeBoost() {
+        loudnessEnhancer?.let { enhancer ->
+            if (ttsVolume > 1f) {
+                val gainDb = 20 * log10(ttsVolume.toDouble())
+                enhancer.setTargetGain((gainDb * 100).toInt())
+                enhancer.enabled = true
+            } else {
+                enhancer.enabled = false
+                enhancer.setTargetGain(0)
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        loudnessEnhancer?.release()
         tts.shutdown()
         if (serviceBound) {
             unbindService(serviceConnection)
