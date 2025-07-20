@@ -12,6 +12,7 @@ import android.os.*
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.view.WindowManager
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var darkModeSwitch: Switch
     private lateinit var ttsEditText: EditText
     private lateinit var tts: TextToSpeech
+    private lateinit var volumeSeekBar: SeekBar
+    private lateinit var volumeValueTextView: TextView
+    private lateinit var volumeWarningTextView: TextView
+    private var ttsVolume = 1.0f
 
     private lateinit var phase1Minutes: NumberPicker
     private lateinit var phase1Seconds: NumberPicker
@@ -200,6 +205,24 @@ class MainActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.resetButton)
         darkModeSwitch = findViewById(R.id.darkModeSwitch)
         ttsEditText = findViewById(R.id.ttsEditText)
+        volumeSeekBar = findViewById(R.id.volumeSeekBar)
+        volumeValueTextView = findViewById(R.id.volumeValueTextView)
+        volumeWarningTextView = findViewById(R.id.volumeWarningTextView)
+
+        volumeSeekBar.max = 200
+        volumeSeekBar.progress = 100
+        volumeValueTextView.text = getString(R.string.volume_default)
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                volumeValueTextView.text = getString(R.string.volume_format, progress)
+                ttsVolume = progress / 100f
+                volumeWarningTextView.visibility = if (progress > 100) View.VISIBLE else View.GONE
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         phase1Minutes = findViewById(R.id.phase1Minutes)
         phase1Seconds = findViewById(R.id.phase1Seconds)
@@ -381,7 +404,7 @@ class MainActivity : AppCompatActivity() {
     private fun speak(text: String) {
         if (isTtsInitialized) {
             val params = Bundle()
-            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f)
+            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume.coerceIn(0f, 2f))
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
         }
     }
