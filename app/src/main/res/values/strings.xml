@@ -19,4 +19,7 @@
     <string name="phase3_minutes_desc">Phase 3 Minutes</string>
     <string name="phase3_seconds_desc">Phase 3 Seconds</string>
     <string name="colon">:</string>
+    <string name="volume_default">Volume: 100%%</string>
+    <string name="volume_format">Volume: %1$d%%</string>
+    <string name="warning_high_volume">Warning: Volume above 100%% may damage speakers.</string>
 </resources>
