@@ -6,6 +6,7 @@ This is a simple Android timer application for the "Plab 2" exam practice. It pr
 
 - Multi-phase countdown timer for PLAB 2 practice
 - Interface now avoids overlapping device cutouts such as punch-hole cameras
+- Adjustable Text-to-Speech volume up to 200% (with warning for high levels)
 
 ## Building
 
