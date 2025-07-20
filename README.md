@@ -8,6 +8,8 @@ This is a simple Android timer application for the "Plab 2" exam practice. It pr
 - Interface now avoids overlapping device cutouts such as punch-hole cameras
 - Adjustable text-to-speech volume slider up to 200% with a safety warning and
   boosted output using Android's `LoudnessEnhancer`
+- App requests the `MODIFY_AUDIO_SETTINGS` permission so the booster can
+  operate correctly
 
 ## Building
 
