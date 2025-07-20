@@ -29,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var resetButton: Button
     private lateinit var darkModeSwitch: Switch
     private lateinit var ttsEditText: EditText
+    private lateinit var volumeSeekBar: SeekBar
+    private lateinit var volumeValueTextView: TextView
+    private var ttsVolume: Float = 1.0f
     private lateinit var tts: TextToSpeech
 
     private lateinit var phase1Minutes: NumberPicker
@@ -200,6 +203,26 @@ class MainActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.resetButton)
         darkModeSwitch = findViewById(R.id.darkModeSwitch)
         ttsEditText = findViewById(R.id.ttsEditText)
+        volumeSeekBar = findViewById(R.id.volumeSeekBar)
+        volumeValueTextView = findViewById(R.id.volumeValueTextView)
+
+        volumeSeekBar.max = 200
+        volumeSeekBar.progress = 100
+        volumeValueTextView.text = "100%"
+
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ttsVolume = progress / 100f
+                volumeValueTextView.text = "$progress%"
+                if (progress > 100) {
+                    Toast.makeText(this@MainActivity, getString(R.string.volume_warning), Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         phase1Minutes = findViewById(R.id.phase1Minutes)
         phase1Seconds = findViewById(R.id.phase1Seconds)
@@ -381,7 +404,7 @@ class MainActivity : AppCompatActivity() {
     private fun speak(text: String) {
         if (isTtsInitialized) {
             val params = Bundle()
-            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f)
+            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, ttsVolume)
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
         }
     }
