@@ -11,6 +11,8 @@ This is a simple Android timer application for the "Plab 2" exam practice. It pr
   maximum 300% volume by default.
 - App requests the `MODIFY_AUDIO_SETTINGS` permission so the booster can
   operate correctly
+- On launch the app warns that it will set the device media volume to maximum so
+  TTS can be heard even if the hardware volume was low
 
 ## Building
 

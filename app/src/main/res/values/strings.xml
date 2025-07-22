@@ -21,4 +21,6 @@
     <string name="colon">:</string>
     <string name="volume_label">TTS Volume</string>
     <string name="volume_warning">Warning: High volume may damage your speakers.</string>
+    <string name="volume_dialog_title">Maximum Volume</string>
+    <string name="volume_dialog_message">This app will set your media volume to maximum so text-to-speech can be heard. It may be loud and could damage your speakers.</string>
 </resources>

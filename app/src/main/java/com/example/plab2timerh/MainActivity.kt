@@ -14,6 +14,7 @@ import android.speech.tts.TextToSpeech
 import android.view.WindowManager
 import android.view.View
 import android.media.audiofx.LoudnessEnhancer
+import android.media.AudioManager
 import kotlin.math.log10
 import kotlin.math.min
 import android.widget.*
@@ -126,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
         resetTimer()
         initTextToSpeech()
+        warnAndMaximizeMediaVolume()
         
         // Start and bind to the service
         val intent = Intent(this, TimerService::class.java)
@@ -406,6 +408,23 @@ class MainActivity : AppCompatActivity() {
             params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, min(ttsVolume, 1.0f))
             adjustVolumeBoost()
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
+        }
+    }
+
+    private fun warnAndMaximizeMediaVolume() {
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        if (current < maxVolume) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.volume_dialog_title)
+                .setMessage(R.string.volume_dialog_message)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)
+                }
+                .show()
+        } else {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)
         }
     }
 
