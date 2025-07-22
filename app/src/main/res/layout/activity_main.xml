@@ -149,6 +149,41 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginTop="16dp" />
 
+            <!-- Volume Slider -->
+            <TextView
+                android:id="@+id/volumeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/volume_label"
+                android:textSize="18sp"
+                android:textColor="#E0E0E0"
+                app:layout_constraintTop_toBottomOf="@id/ttsEditText"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="24dp" />
+
+            <SeekBar
+                android:id="@+id/volumeSeekBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:max="300"
+                android:progress="300"
+                app:layout_constraintTop_toBottomOf="@id/volumeLabel"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <TextView
+                android:id="@+id/volumeWarning"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/volume_warning"
+                android:textColor="#FF9800"
+                android:textSize="14sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/volumeSeekBar"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="4dp" />
+
             <!-- Phase 1 Section (1.5 minutes) -->
             <TextView
                 android:id="@+id/section2TextView"
@@ -158,7 +193,7 @@
                 android:textSize="28sp"
                 android:textColor="#E0E0E0"
                 android:fontFamily="sans-serif-medium"
-                app:layout_constraintTop_toBottomOf="@id/ttsEditText"
+                app:layout_constraintTop_toBottomOf="@id/volumeWarning"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="24dp" />
 

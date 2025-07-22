@@ -12,6 +12,11 @@ import android.os.*
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.view.WindowManager
+import android.view.View
+import android.media.audiofx.LoudnessEnhancer
+import android.media.AudioManager
+import kotlin.math.log10
+import kotlin.math.min
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +34,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var resetButton: Button
     private lateinit var darkModeSwitch: Switch
     private lateinit var ttsEditText: EditText
+    private lateinit var volumeSeekBar: SeekBar
+    private lateinit var volumeWarning: TextView
+    private var ttsVolume: Float = 3.0f
+    private var loudnessEnhancer: LoudnessEnhancer? = null
     private lateinit var tts: TextToSpeech
 
     private lateinit var phase1Minutes: NumberPicker
@@ -118,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         initViews()
         resetTimer()
         initTextToSpeech()
+        warnAndMaximizeMediaVolume()
         
         // Start and bind to the service
         val intent = Intent(this, TimerService::class.java)
@@ -200,6 +210,19 @@ class MainActivity : AppCompatActivity() {
         resetButton = findViewById(R.id.resetButton)
         darkModeSwitch = findViewById(R.id.darkModeSwitch)
         ttsEditText = findViewById(R.id.ttsEditText)
+        volumeSeekBar = findViewById(R.id.volumeSeekBar)
+        volumeWarning = findViewById(R.id.volumeWarning)
+
+        volumeSeekBar.progress = (ttsVolume * 100).toInt()
+        volumeSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                ttsVolume = progress / 100f
+                volumeWarning.visibility = if (progress > 100) View.VISIBLE else View.GONE
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
 
         phase1Minutes = findViewById(R.id.phase1Minutes)
         phase1Seconds = findViewById(R.id.phase1Seconds)
@@ -267,6 +290,7 @@ class MainActivity : AppCompatActivity() {
                 tts.setPitch(1.0f)
             }
         }
+        loudnessEnhancer = LoudnessEnhancer(0)
     }
 
     private fun updateDurations() {
@@ -381,13 +405,45 @@ class MainActivity : AppCompatActivity() {
     private fun speak(text: String) {
         if (isTtsInitialized) {
             val params = Bundle()
-            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f)
+            params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, min(ttsVolume, 1.0f))
+            adjustVolumeBoost()
             tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, null)
+        }
+    }
+
+    private fun warnAndMaximizeMediaVolume() {
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        val current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        if (current < maxVolume) {
+            AlertDialog.Builder(this)
+                .setTitle(R.string.volume_dialog_title)
+                .setMessage(R.string.volume_dialog_message)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)
+                }
+                .show()
+        } else {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)
+        }
+    }
+
+    private fun adjustVolumeBoost() {
+        loudnessEnhancer?.let { enhancer ->
+            if (ttsVolume > 1f) {
+                val gainDb = 20 * log10(ttsVolume.toDouble())
+                enhancer.setTargetGain((gainDb * 100).toInt())
+                enhancer.enabled = true
+            } else {
+                enhancer.enabled = false
+                enhancer.setTargetGain(0)
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        loudnessEnhancer?.release()
         tts.shutdown()
         if (serviceBound) {
             unbindService(serviceConnection)

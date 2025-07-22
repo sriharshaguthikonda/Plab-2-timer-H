@@ -5,6 +5,9 @@
     <!-- Core permissions for timer functionality -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- Needed for applying LoudnessEnhancer to boost TTS volume -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     
     <!-- ADD THIS LINE - Required for specialUse foreground service type -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
