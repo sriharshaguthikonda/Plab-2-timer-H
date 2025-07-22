@@ -166,7 +166,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:max="300"
-                android:progress="100"
+                android:progress="300"
                 app:layout_constraintTop_toBottomOf="@id/volumeLabel"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />

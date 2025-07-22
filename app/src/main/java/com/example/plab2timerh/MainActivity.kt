@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ttsEditText: EditText
     private lateinit var volumeSeekBar: SeekBar
     private lateinit var volumeWarning: TextView
-    private var ttsVolume: Float = 1.0f
+    private var ttsVolume: Float = 3.0f
     private var loudnessEnhancer: LoudnessEnhancer? = null
     private lateinit var tts: TextToSpeech
 
