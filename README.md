@@ -6,6 +6,7 @@ This is a simple Android timer application for the "Plab 2" exam practice. It pr
 
 - Multi-phase countdown timer for PLAB 2 practice
 - Interface now avoids overlapping device cutouts such as punch-hole cameras
+- Phase seconds pickers increment in 10-second steps
 
 ## Building
 

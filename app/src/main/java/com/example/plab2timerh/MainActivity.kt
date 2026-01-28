@@ -239,19 +239,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNumberPickers() {
         listOf(
-            Triple(phase1Minutes, 0, 59),
-            Triple(phase1Seconds, 0, 59),
-            Triple(phase2Minutes, 0, 59),
-            Triple(phase2Seconds, 0, 59),
-            Triple(phase3Minutes, 0, 59),
-            Triple(phase3Seconds, 0, 59)
-        ).forEach { (picker, min, max) ->
-            picker.minValue = min
+            Pair(phase1Minutes, 59),
+            Pair(phase2Minutes, 59),
+            Pair(phase3Minutes, 59)
+        ).forEach { (picker, max) ->
+            picker.minValue = 0
             picker.maxValue = max
             picker.wrapSelectorWheel = true
         }
 
-        phase1Minutes.value = 1; phase1Seconds.value = 30
+        val secondStepValues = arrayOf("00", "10", "20", "30", "40", "50")
+        listOf(phase1Seconds, phase2Seconds, phase3Seconds).forEach { picker ->
+            picker.minValue = 0
+            picker.maxValue = secondStepValues.lastIndex
+            picker.displayedValues = secondStepValues
+            picker.wrapSelectorWheel = true
+        }
+
+        phase1Minutes.value = 1; phase1Seconds.value = 3
         phase2Minutes.value = 6; phase2Seconds.value = 0
         phase3Minutes.value = 2; phase3Seconds.value = 0
 
@@ -270,9 +275,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDurations() {
-        phase1Duration = (phase1Minutes.value * 60L + phase1Seconds.value) * 1000
-        phase2Duration = (phase2Minutes.value * 60L + phase2Seconds.value) * 1000
-        phase3Duration = (phase3Minutes.value * 60L + phase3Seconds.value) * 1000
+        phase1Duration = (phase1Minutes.value * 60L + phase1Seconds.value * 10L) * 1000
+        phase2Duration = (phase2Minutes.value * 60L + phase2Seconds.value * 10L) * 1000
+        phase3Duration = (phase3Minutes.value * 60L + phase3Seconds.value * 10L) * 1000
     }
 
     private fun startSequentialTimer() {
@@ -323,7 +328,7 @@ class MainActivity : AppCompatActivity() {
     
     // Reset NumberPickers to default values
     phase1Minutes.value = 1
-    phase1Seconds.value = 30
+    phase1Seconds.value = 3
     phase2Minutes.value = 6
     phase2Seconds.value = 0
     phase3Minutes.value = 2
